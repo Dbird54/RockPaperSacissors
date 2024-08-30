@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin: 50px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .choices {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .choice {
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rock, Paper, Scissors Game</h1>
+        <p>Choose your move:</p>
+        <div class="choices">
+            <div class="choice" id="rock">Rock</div>
+            <div class="choice" id="paper">Paper</div>
+            <div class="choice" id="scissors">Scissors</div>
+        </div>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const choices = ["rock", "paper", "scissors"];
+
+        const computerChoice = () => {
+            return choices[Math.floor(Math.random() * 3)];
+        };
+
+        const determineWinner = (playerChoice, compChoice) => {
+            if (playerChoice === compChoice) {
+                return "It's a tie!";
+            } else if (
+                (playerChoice === "rock" && compChoice === "scissors") ||
+                (playerChoice === "paper" && compChoice === "rock") ||
+                (playerChoice === "scissors" && compChoice === "paper")
+            ) {
+                return "You win!";
+            } else {
+                return "Computer wins!";
+            }
+        };
+
+        const choiceButtons = document.querySelectorAll(".choice");
+        const resultText = document.getElementById("result");
+
+        choiceButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+                const playerChoice = button.id;
+                const compChoice = computerChoice();
+                const result = determineWinner(playerChoice, compChoice);
+                resultText.textContent = `You chose ${playerChoice}. Computer chose ${compChoice}. ${result}`;
+            });
+        });
+    </script>
+</body>
+</html>
